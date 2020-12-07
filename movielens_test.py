@@ -1,16 +1,16 @@
 from starbase import Connection
 import csv
 
-c = Connection() # default is '127.0.0.1:8000'
+c = Connection(host="127.0.0.1", port=8005) # default is '127.0.0.1:8000'
 ratings = c.table('ratings')
 if (ratings.exists()):
   ratings.drop()
-ratings.create('rating')
+print(ratings.create('rating'))
 
 batch = ratings.batch()
 if batch:
   print("Batch update... \n")
-  with open("e:/work/bigdata/ml-latest-small/ratings.csv", "r") as f:
+  with open("./data/ml-latest-small/ratings.csv", "r") as f:
     reader = csv.reader(f, delimiter=",")
     next(reader) # skip header
     for row in reader:
